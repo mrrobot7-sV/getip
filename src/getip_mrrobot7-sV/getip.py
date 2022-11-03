@@ -1,4 +1,3 @@
-import subprocess
 from tkinter import Tk
 from netifaces import interfaces, ifaddresses, AF_INET
 import argparse
