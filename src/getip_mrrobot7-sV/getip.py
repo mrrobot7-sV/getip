@@ -30,7 +30,7 @@ def copy_to_clipboard(ip):
 
 def main():
     try:
-        parser = argparse.ArgumentParser(prog ="getip", usage="%(prog)s -i [interface]", description="get IPv4 from network interface and copy to clipboard.")
+        parser = argparse.ArgumentParser(prog ="getip", usage="%(prog)s [-v] -i [interface]", description="get IPv4 from network interface and copy to clipboard.")
         parser.add_argument('-i','--interface', help="the name of the network interface.", type=str, required=False)
         parser.add_argument('-v', help="more verbose output", action='store_true', required=False)
         args = parser.parse_args()
