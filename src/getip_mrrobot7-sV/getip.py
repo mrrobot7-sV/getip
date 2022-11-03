@@ -1,6 +1,6 @@
 import subprocess
 from tkinter import Tk
-import re
+from netifaces import interfaces, ifaddresses, AF_INET
 import argparse
 
 # 
@@ -10,11 +10,24 @@ import argparse
 # SYNOPSIS
 #           getip [-v] -i [interface]
 # 
-# 
-# Author: mrrobot7-sV
-# version: 1.0
-# System requirements: Python 3, ???
-# 
+# AUTHOR
+#           John Abraham, <pdv.dev07@outlook.com>
+
+def get_ip_address(iname):
+    for ifaceName in interfaces():
+        if (iname == ifaceName):
+            addresses = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':'No IP addr'}] )]  
+            return ' '.join(addresses)
+    return None
+
+def copy_to_clipboard(ip):
+    # copy IPv4 to the clipboard using tkinter (Python 3)
+    r = Tk()
+    r.withdraw()
+    r.clipboard_clear()
+    r.clipboard_append(ip)
+    r.update() # now it stays on the clipboard after the window is closed
+    r.destroy()
 
 def main():
     try:
@@ -27,24 +40,15 @@ def main():
         interface = 'tun0'
         if (args.interface):
             interface = args.interface 
-    
-        # set up command to get IP address
-        cmd = ["ip", "-br", "a", "show", interface]
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output, err = proc.communicate()
 
-        # IPv4 address pattern
-        ip = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', output.decode('ascii')).group(0)
-        if args.v:
-            print(f"IP [{ip}] for network interface [{interface}] copied to clipboard.")
+        ip = get_ip_address(interface)
+        if ip != None:
+            if args.v:
+                print(f"IP [{ip}] for network interface [{interface}] copied to clipboard.")
+            copy_to_clipboard(ip)
+        else:
+            print("No IPv4 address found for that network interface.")        
 
-        # copy IPv4 to the clipboard using tkinter (Python 3)
-        r = Tk()
-        r.withdraw()
-        r.clipboard_clear()
-        r.clipboard_append(ip)
-        r.update() # now it stays on the clipboard after the window is closed
-        r.destroy()
     except Exception as e:
         print(e)
 
