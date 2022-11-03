@@ -1,5 +1,8 @@
 # getip
 Get IPv4 from network interface and copy to clipboard.
+# Installation
+
+Download [getip.py](src/getip_mrrobot7-sV/getip.py)
 
 # How to use
 ```
