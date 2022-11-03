@@ -1,0 +1,17 @@
+[project]
+name = "getip_mrrobot7-Sv"
+version = "1.0"
+authors = [
+  { name="John Abraham", email="pdv.dev07@outlook.com" },
+]
+description = "Get IPv4 from network interface and copy to clipboard."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/mrrobot7-sV/getip"
