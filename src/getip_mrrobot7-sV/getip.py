@@ -1,4 +1,4 @@
-from tkinter import Tk
+import pyperclip
 from netifaces import interfaces, ifaddresses, AF_INET
 import argparse
 
@@ -20,13 +20,8 @@ def get_ip_address(iname):
     return None
 
 def copy_to_clipboard(ip):
-    # copy IPv4 to the clipboard using tkinter (Python 3)
-    r = Tk()
-    r.withdraw()
-    r.clipboard_clear()
-    r.clipboard_append(ip)
-    r.update() # now it stays on the clipboard after the window is closed
-    r.destroy()
+    # copy IPv4 to the clipboard using pyperclip (Python 2/3)
+    pyperclip.copy(ip)
 
 def main():
     try:
